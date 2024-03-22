@@ -21,8 +21,9 @@ public class FooRecordProducerTask implements Runnable {
     public void run() {
 
         log.info("Producer started");
+        int iter = 0;
 
-        while (true) {
+        while (iter < 15) {
 
             UUID key = UUID.randomUUID();
             FooRecord fooRecord = FooRecord.builder()
@@ -50,6 +51,8 @@ public class FooRecordProducerTask implements Runnable {
                             sr.getProducerRecord().value());
                 }
             });
+
+            iter++;
         }
     }
 }
