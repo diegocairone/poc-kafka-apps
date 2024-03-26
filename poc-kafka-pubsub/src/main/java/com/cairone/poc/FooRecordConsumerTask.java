@@ -1,13 +1,12 @@
 package com.cairone.poc;
 
-import com.cairone.poc.core.model.FooDeserializer;
+import com.cairone.poc.common.serialization.FooDeserializer;
 import com.cairone.poc.core.model.FooRecord;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.UUIDDeserializer;
 
 import java.time.Duration;
@@ -30,12 +29,8 @@ public class FooRecordConsumerTask implements Runnable {
 
     public void run() {
         consumer.subscribe(Collections.singletonList(topic));
+
         while (true) {
-            try {
-                Thread.sleep(1000L * 2L);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
             ConsumerRecords<UUID, FooRecord> consumerRecords = consumer.poll(Duration.ofMillis(100));
             for (ConsumerRecord<UUID, FooRecord> message : consumerRecords) {
                 log.info("Consumed: {} -> {} on thread: {}",

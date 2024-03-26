@@ -1,5 +1,6 @@
-package com.cairone.poc.core.model;
+package com.cairone.poc.common.serialization;
 
+import com.cairone.poc.core.model.FooRecord;
 import org.apache.kafka.common.serialization.Deserializer;
 
 import java.io.ByteArrayInputStream;

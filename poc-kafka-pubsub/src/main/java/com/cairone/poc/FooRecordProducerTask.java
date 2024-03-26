@@ -1,7 +1,7 @@
 package com.cairone.poc;
 
 import com.cairone.poc.core.model.FooRecord;
-import com.cairone.poc.core.model.FooSerializer;
+import com.cairone.poc.common.serialization.FooSerializer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.AdminClient;
