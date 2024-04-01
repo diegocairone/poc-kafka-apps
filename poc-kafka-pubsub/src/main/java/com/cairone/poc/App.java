@@ -23,8 +23,8 @@ public class App implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        produceRecords(false);
-        consumeRecords(true);
+        produceRecords(true);
+        consumeRecords(false);
 
         while (true) {
             log.info("Application started");

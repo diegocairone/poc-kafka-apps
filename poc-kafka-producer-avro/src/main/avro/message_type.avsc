@@ -1,0 +1,11 @@
+{
+    "type": "record",
+    "name": "MessageRecord",
+    "namespace": "com.cairone.poc.avro.record",
+    "fields": [
+        {
+            "name": "message",
+            "type": "string"
+        }
+    ]
+}
