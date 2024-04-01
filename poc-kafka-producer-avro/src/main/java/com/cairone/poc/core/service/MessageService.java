@@ -24,7 +24,6 @@ public class MessageService {
         UUID key = UUID.randomUUID();
         MessagePayload payload = new MessagePayload();
         payload.setMessage(message);
-        //messageRecord.setCount(100);
         kafkaTemplate.send(kafkaTopic, partition, key, payload);
         log.info("Sent [key {}]: {}", key, payload);
         return MessageModel.builder()
