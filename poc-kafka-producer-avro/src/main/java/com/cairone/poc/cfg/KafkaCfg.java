@@ -42,12 +42,17 @@ public class KafkaCfg {
         final Map config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "demo-consumer-group");
+        // Spring class to cleanly handle deserialization errors
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
         config.put(ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, UUIDDeserializer.class);
+        // The Confluent class to deserialize messages in the Avro format
         config.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, KafkaAvroDeserializer.class);
+        // The URL to the Confluent Schema Registry
         config.put(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryUrl);
+        // Whether schemas that do not yet exist should be registered
         config.put(KafkaAvroDeserializerConfig.AUTO_REGISTER_SCHEMAS, false);
+        // Deserialize to the generated Avro class rather than a GenericRecord type
         config.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
         return new DefaultKafkaConsumerFactory<>(config);
     }
