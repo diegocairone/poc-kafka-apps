@@ -1,6 +1,6 @@
 package com.cairone.poc.core.service;
 
-import com.cairone.poc.avro.record.MessageRecord;
+import com.cairone.poc.avro.payload.MessagePayload;
 import com.cairone.poc.core.model.MessageModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,20 +15,20 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MessageService {
 
-    private final KafkaTemplate<UUID, MessageRecord> kafkaTemplate;
+    private final KafkaTemplate<UUID, MessagePayload> kafkaTemplate;
 
     @Value("${app.kafka.topic}")
     private String kafkaTopic;
 
     public MessageModel sendMessage(String message, int partition) {
         UUID key = UUID.randomUUID();
-        MessageRecord messageRecord = new MessageRecord();
-        messageRecord.setMessage(message);
+        MessagePayload payload = new MessagePayload();
+        payload.setMessage(message);
         //messageRecord.setCount(100);
-        kafkaTemplate.send(kafkaTopic, partition, key, messageRecord);
-        log.info("Sent [key {}]: {}", key, messageRecord);
+        kafkaTemplate.send(kafkaTopic, partition, key, payload);
+        log.info("Sent [key {}]: {}", key, payload);
         return MessageModel.builder()
-                .withMessage(messageRecord.getMessage().toString())
+                .withMessage(payload.getMessage().toString())
                 .build();
     }
 }

@@ -1,7 +1,7 @@
 {
     "type": "record",
-    "name": "MessageRecord",
-    "namespace": "com.cairone.poc.avro.record",
+    "name": "MessagePayload",
+    "namespace": "com.cairone.poc.avro.payload",
     "fields": [
         {
             "name": "message",
