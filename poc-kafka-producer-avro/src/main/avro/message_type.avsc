@@ -6,6 +6,10 @@
         {
             "name": "message",
             "type": "string"
+        },
+        {
+            "name": "count",
+            "type": ["null", "int"]
         }
     ]
 }

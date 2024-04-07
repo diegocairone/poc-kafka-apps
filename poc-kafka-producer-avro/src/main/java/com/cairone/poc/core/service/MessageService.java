@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
 import java.util.UUID;
 
 @Slf4j
@@ -22,8 +23,10 @@ public class MessageService {
 
     public MessageModel sendMessage(String message, int partition) {
         UUID key = UUID.randomUUID();
+        Random random = new Random();
         MessagePayload payload = new MessagePayload();
         payload.setMessage(message);
+        payload.setCount(random.nextInt(100));
         kafkaTemplate.send(kafkaTopic, partition, key, payload);
         log.info("Sent [key {}]: {}", key, payload);
         return MessageModel.builder()
